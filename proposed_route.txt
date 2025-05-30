@@ -1,0 +1,1 @@
+proposed_route = {Katovice, Strakonice, Vimperk, Soběslav, Tábor, Blatná, Volary, Milotice, Protivín, Písek}

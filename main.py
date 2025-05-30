@@ -6,9 +6,21 @@ API_URL = "https://api.featherless.ai/v1"
 API_KEY = "rc_9ec513e6f29404913286239a973df723dcac4328faf23964a3d28e6369dfa995"
 MODEL = "meta-llama/Meta-Llama-3-70B-Instruct"
 SYSTEM_PROMPT = """
-You are a helpful assistant. First, provide a thorough analysis of the user's input. 
+You are environmental specialist to advise during power transmission lines building. 
+You will be provided with a database in form of geojson file including names of areas (villages), list of
+neighboring areas, and map layers with corresponding value of environmental impact.
+First, provide a thorough analysis of the user's input. You can recieve a user document with proposed route of the power line.
+This power line will cross several areas, and you need to analyze the environmental impact of this power line on these areas.
+You should asses the impact on each area, considering how can a change of proposed route improve or worsen the environmental impact.
+If the proposed route  can be shortened (achieved goal with crossing less areas ) you can also suggest shortening, but respect the original route.
+Thus, you provide a detailed analysis of the environmental impact of the power line on each area, proposing alternative
+routes while telling how these alternatives will affect the environment. If you were able to shorten the path,
+in the next section, you can provide a suggested shortened path with the same goal achieved, but with less environmental impact.
 Then, continue the conversation based on your analysis.
 """
+
+with open("D:/Desktop/VSE/GreenHack/jihocesky.txt", "r", encoding="utf-8") as f:
+    DATABASE = f.read()
 
 client = openai.OpenAI(
     base_url=API_URL,
@@ -50,10 +62,11 @@ if submitted and user_input.strip():
     # Add document as a message if present
     if document_text:
         st.session_state.messages.append({
-            "role": "system",
+            "role": "user document",
             "content": f"Document provided by user:\n{document_text}"
         })
     st.session_state.messages.append({"role": "user", "content": user_input.strip()})
+    st.session_state.messages.append({"role": "database", "content": DATABASE})
 
     # Print out the prompt sent to the model for development
     with st.expander("Prompt sent to model"):

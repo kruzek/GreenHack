@@ -1,0 +1,254 @@
+{
+  "Bechyně": {
+    "neighbouring_villages": ["Týn nad Vltavou", "Milevsko", "Soběslav"],
+    "wetness": 2,
+    "NDVI": 0.45,
+    "svietivost": 1100,
+    "teplota": 21.3
+  },
+  "Blatná": {
+    "neighbouring_villages": ["Strakonice", "Mirotice", "Katovice"],
+    "wetness": 3,
+    "NDVI": 0.38,
+    "svietivost": 1150,
+    "teplota": 19.8
+  },
+  "České Budějovice": {
+    "neighbouring_villages": ["Hluboká nad Vltavou", "Zliv", "Týn nad Vltavou"],
+    "wetness": 1,
+    "NDVI": 0.52,
+    "svietivost": 1200,
+    "teplota": 22.5
+  },
+  "České Velenice": {
+    "neighbouring_villages": ["Nové Hrady", "Suchdol nad Lužnicí", "Třeboň"],
+    "wetness": 4,
+    "NDVI": 0.60,
+    "svietivost": 950,
+    "teplota": 18.7
+  },
+  "Český Krumlov": {
+    "neighbouring_villages": ["Kaplice", "Vyšší Brod", "Horní Planá"],
+    "wetness": 2,
+    "NDVI": 0.47,
+    "svietivost": 1050,
+    "teplota": 20.1
+  },
+  "Dačice": {
+    "neighbouring_villages": ["Slavonice", "Studená", "Nová Bystřice"],
+    "wetness": 3,
+    "NDVI": 0.35,
+    "svietivost": 980,
+    "teplota": 19.0
+  },
+  "Hluboká nad Vltavou": {
+    "neighbouring_villages": ["České Budějovice", "Zliv", "Netolice"],
+    "wetness": 1,
+    "NDVI": 0.50,
+    "svietivost": 1180,
+    "teplota": 21.7
+  },
+  "Horní Planá": {
+    "neighbouring_villages": ["Volary", "Český Krumlov", "Vyšší Brod"],
+    "wetness": 2,
+    "NDVI": 0.42,
+    "svietivost": 1020,
+    "teplota": 20.5
+  },
+  "Jindřichův Hradec": {
+    "neighbouring_villages": ["Nová Bystřice", "Studená", "Třeboň"],
+    "wetness": 3,
+    "NDVI": 0.40,
+    "svietivost": 990,
+    "teplota": 19.3
+  },
+  "Kaplice": {
+    "neighbouring_villages": ["Český Krumlov", "Vyšší Brod", "Nové Hrady"],
+    "wetness": 2,
+    "NDVI": 0.44,
+    "svietivost": 1070,
+    "teplota": 20.0
+  },
+  "Katovice": {
+    "neighbouring_villages": ["Strakonice", "Blatná", "Volyně"],
+    "wetness": 1,
+    "NDVI": 0.36,
+    "svietivost": 1120,
+    "teplota": 21.0
+  },
+  "Milevsko": {
+    "neighbouring_villages": ["Bechyně", "Písek", "Mirovice"],
+    "wetness": 2,
+    "NDVI": 0.39,
+    "svietivost": 1090,
+    "teplota": 20.2
+  },
+  "Mirotice": {
+    "neighbouring_villages": ["Blatná", "Písek", "Mirovice"],
+    "wetness": 3,
+    "NDVI": 0.41,
+    "svietivost": 970,
+    "teplota": 19.5
+  },
+  "Mirovice": {
+    "neighbouring_villages": ["Milevsko", "Písek", "Mirotice"],
+    "wetness": 2,
+    "NDVI": 0.37,
+    "svietivost": 1000,
+    "teplota": 20.8
+  },
+  "Mladá Vožice": {
+    "neighbouring_villages": ["Tábor", "Sezimovo Ústí", "Soběslav"],
+    "wetness": 1,
+    "NDVI": 0.43,
+    "svietivost": 1160,
+    "teplota": 22.0
+  },
+  "Netolice": {
+    "neighbouring_villages": ["Hluboká nad Vltavou", "Prachatice", "Vodňany"],
+    "wetness": 2,
+    "NDVI": 0.46,
+    "svietivost": 1080,
+    "teplota": 20.6
+  },
+  "Nová Bystřice": {
+    "neighbouring_villages": ["Jindřichův Hradec", "Dačice", "Slavonice"],
+    "wetness": 3,
+    "NDVI": 0.38,
+    "svietivost": 960,
+    "teplota": 19.2
+  },
+  "Nové Hrady": {
+    "neighbouring_villages": ["Kaplice", "České Velenice", "Suchdol nad Lužnicí"],
+    "wetness": 2,
+    "NDVI": 0.49,
+    "svietivost": 1040,
+    "teplota": 20.3
+  },
+  "Písek": {
+    "neighbouring_villages": ["Milevsko", "Mirotice", "Protivín"],
+    "wetness": 1,
+    "NDVI": 0.40,
+    "svietivost": 1130,
+    "teplota": 21.5
+  },
+  "Prachatice": {
+    "neighbouring_villages": ["Netolice", "Vimperk", "Volary"],
+    "wetness": 2,
+    "NDVI": 0.45,
+    "svietivost": 1010,
+    "teplota": 20.0
+  },
+  "Protivín": {
+    "neighbouring_villages": ["Písek", "Vodňany", "Mirotice"],
+    "wetness": 3,
+    "NDVI": 0.42,
+    "svietivost": 980,
+    "teplota": 19.7
+  },
+  "Sezimovo Ústí": {
+    "neighbouring_villages": ["Tábor", "Mladá Vožice", "Soběslav"],
+    "wetness": 1,
+    "NDVI": 0.47,
+    "svietivost": 1170,
+    "teplota": 22.2
+  },
+  "Slavonice": {
+    "neighbouring_villages": ["Dačice", "Nová Bystřice", "Studená"],
+    "wetness": 2,
+    "NDVI": 0.36,
+    "svietivost": 990,
+    "teplota": 19.0
+  },
+  "Soběslav": {
+    "neighbouring_villages": ["Bechyně", "Sezimovo Ústí", "Mladá Vožice"],
+    "wetness": 2,
+    "NDVI": 0.44,
+    "svietivost": 1100,
+    "teplota": 20.9
+  },
+  "Strakonice": {
+    "neighbouring_villages": ["Katovice", "Blatná", "Volyně"],
+    "wetness": 1,
+    "NDVI": 0.39,
+    "svietivost": 1140,
+    "teplota": 21.8
+  },
+  "Studená": {
+    "neighbouring_villages": ["Dačice", "Jindřichův Hradec", "Slavonice"],
+    "wetness": 3,
+    "NDVI": 0.35,
+    "svietivost": 970,
+    "teplota": 19.1
+  },
+  "Suchdol nad Lužnicí": {
+    "neighbouring_villages": ["Nové Hrady", "České Velenice", "Třeboň"],
+    "wetness": 4,
+    "NDVI": 0.50,
+    "svietivost": 950,
+    "teplota": 18.5
+  },
+    "Tábor": {
+  "neighbouring_villages": ["Sezimovo Ústí", "Mladá Vožice", "Soběslav"],
+  "wetness": 2,
+  "NDVI": 0.43,
+  "svietivost": 1175,
+  "teplota": 21.9
+    },
+    "Třeboň": {
+    "neighbouring_villages": ["Jindřichův Hradec", "Suchdol nad Lužnicí", "České Velenice"],
+    "wetness": 3,
+    "NDVI": 0.27,
+    "svietivost": 1123,
+    "teplota": 22.4
+  },
+  "Týn nad Vltavou": {
+    "neighbouring_villages": ["Bechyně", "České Budějovice", "Zliv"],
+    "wetness": 1,
+    "NDVI": 0.65,
+    "svietivost": 1045,
+    "teplota": 19.8
+  },
+  "Veselí nad Lužnicí": {
+    "neighbouring_villages": ["Soběslav", "Třeboň", "Tábor"],
+    "wetness": 2,
+    "NDVI": -0.12,
+    "svietivost": 1250,
+    "teplota": 18.3
+  },
+  "Vimperk": {
+    "neighbouring_villages": ["Prachatice", "Volary", "Strakonice"],
+    "wetness": 4,
+    "NDVI": 0.03,
+    "svietivost": 980,
+    "teplota": 20.1
+  },
+  "Vodňany": {
+    "neighbouring_villages": ["Netolice", "Protivín", "Zliv"],
+    "wetness": 0,
+    "NDVI": 0.89,
+    "svietivost": 1175,
+    "teplota": 23.7
+  },
+  "Volary": {
+    "neighbouring_villages": ["Horní Planá", "Prachatice", "Vimperk"],
+    "wetness": 2,
+    "NDVI": -0.45,
+    "svietivost": 1070,
+    "teplota": 16.9
+  },
+  "Volyně": {
+    "neighbouring_villages": ["Strakonice", "Katovice", "Vimperk"],
+    "wetness": 1,
+    "NDVI": 0.34,
+    "svietivost": 1190,
+    "teplota": 21.5
+  },
+  "Zliv": {
+    "neighbouring_villages": ["České Budějovice", "Hluboká nad Vltavou", "Vodňany"],
+    "wetness": 3,
+    "NDVI": 0.12,
+    "svietivost": 1010,
+    "teplota": 19.6
+  }
+}
