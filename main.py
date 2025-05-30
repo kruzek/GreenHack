@@ -1,17 +1,13 @@
 import streamlit as st
+import openai
 
-try:
-    from openai import OpenAI
-except ImportError:
-    st.error("The 'openai' package is not installed. Please run 'pip install openai' in your terminal.")
-    st.stop()
 
 API_URL = "https://api.featherless.ai/v1"
 API_KEY = "rc_9ec513e6f29404913286239a973df723dcac4328faf23964a3d28e6369dfa995"
 MODEL = "meta-llama/Meta-Llama-3-70B-Instruct"
 SYSTEM_PROMPT = "You are a helpful assistant. First, provide a thorough analysis of the user's input. Then, continue the conversation based on your analysis."
 
-client = OpenAI(
+client = openai.OpenAI(
     base_url=API_URL,
     api_key=API_KEY,
 )
