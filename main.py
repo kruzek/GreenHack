@@ -1,16 +1,56 @@
-# This is a sample Python script.
+import streamlit as st
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+try:
+    from openai import OpenAI
+except ImportError:
+    st.error("The 'openai' package is not installed. Please run 'pip install openai' in your terminal.")
+    st.stop()
 
+API_URL = "https://api.featherless.ai/v1"
+API_KEY = "rc_9ec513e6f29404913286239a973df723dcac4328faf23964a3d28e6369dfa995"
+MODEL = "meta-llama/Meta-Llama-3-70B-Instruct"
+SYSTEM_PROMPT = "You are a helpful assistant. First, provide a thorough analysis of the user's input. Then, continue the conversation based on your analysis."
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+client = OpenAI(
+    base_url=API_URL,
+    api_key=API_KEY,
+)
 
+def call_llm(messages):
+    response = client.chat.completions.create(
+        model=MODEL,
+        messages=messages,
+    )
+    return response.model_dump()['choices'][0]['message']['content']
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+st.set_page_config(page_title="LLM Chat Interface", layout="centered")
+st.title("LLM Chat Interface")
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+if "messages" not in st.session_state:
+    st.session_state.messages = [
+        {"role": "system", "content": SYSTEM_PROMPT}
+    ]
+if "analysis_done" not in st.session_state:
+    st.session_state.analysis_done = False
+
+chat_history = st.container()
+
+with st.form("chat_form", clear_on_submit=True):
+    user_input = st.text_area("Your message:", key="user_input", height=80)
+    submitted = st.form_submit_button("Send")
+
+if submitted and user_input.strip():
+    st.session_state.messages.append({"role": "user", "content": user_input.strip()})
+    with st.spinner("Assistant is typing..."):
+        assistant_reply = call_llm(st.session_state.messages)
+    st.session_state.messages.append({"role": "assistant", "content": assistant_reply})
+    st.session_state.analysis_done = True
+
+with chat_history:
+    for msg in st.session_state.messages:
+        if msg["role"] == "system":
+            continue
+        if msg["role"] == "user":
+            st.markdown(f"**You:** {msg['content']}")
+        elif msg["role"] == "assistant":
+            st.markdown(f"**Assistant:** {msg['content']}")
