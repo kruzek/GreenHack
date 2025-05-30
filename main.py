@@ -1,4 +1,7 @@
 import streamlit as st
+
+st.set_page_config(page_title="AI Environmental assistant", layout="centered")
+
 import openai
 
 
@@ -34,55 +37,145 @@ def call_llm(messages):
     )
     return response.model_dump()['choices'][0]['message']['content']
 
-st.set_page_config(page_title="AI Environmental assistant", layout="centered")
-st.title("AI Environmental assistant")
+from dijkstra_map import (
+    load_raster,
+    downsample_raster,
+    create_cost_matrix,
+    run_dijkstra,
+    plot_map_with_path
+)
 
-# New: Document upload
-document_text = ""
-with st.expander("Optional: Upload a document to include in the prompt"):
-    uploaded_file = st.file_uploader("Choose a text file", type=["txt"])
-    if uploaded_file is not None:
-        document_text = uploaded_file.read().decode("utf-8")
-        st.text_area("Document content", value=document_text, height=150, disabled=True)
+# --- Sidebar Navigation ---
+st.sidebar.title("Navigation")
+page = st.sidebar.radio(
+    "Go to",
+    ("Dijkstra Routing", "AI Environmental Assistant")
+)
 
-if "messages" not in st.session_state:
-    st.session_state.messages = [
-        {"role": "system", "content": SYSTEM_PROMPT}
-    ]
-if "analysis_done" not in st.session_state:
-    st.session_state.analysis_done = False
+if page == "Dijkstra Routing":
+    # --- Dijkstra Map Section ---
+    if "raster_data" not in st.session_state:
+        st.session_state["raster_data"] = load_raster("landuse_cutout.tif")
 
-chat_history = st.container()
+    st.header("Interactive Dijkstra on Cutout Map")
 
-with st.form("chat_form", clear_on_submit=True):
-    user_input = st.text_area("Your message:", key="user_input", height=80)
-    submitted = st.form_submit_button("Send")
+    downsample_factor = st.selectbox(
+        "Downsample Factor",
+        options=[1, 2, 5, 10],
+        index=0,
+        key="downsample_factor"
+    )
 
-if submitted and user_input.strip():
-    # Add document as a message if present
-    if document_text:
-        st.session_state.messages.append({
-            "role": "user document",
-            "content": f"Document provided by user:\n{document_text}"
-        })
-    st.session_state.messages.append({"role": "user", "content": user_input.strip()})
-    st.session_state.messages.append({"role": "database", "content": DATABASE})
+    if st.button("Reset Points"):
+        st.session_state["start_point"] = None
+        st.session_state["goal_point"] = None
+        st.session_state["dijkstra_path"] = None
 
-    # Print out the prompt sent to the model for development
-    with st.expander("Prompt sent to model"):
+    if "start_point" not in st.session_state:
+        st.session_state["start_point"] = None
+    if "goal_point" not in st.session_state:
+        st.session_state["goal_point"] = None
+    if "dijkstra_path" not in st.session_state:
+        st.session_state["dijkstra_path"] = None
+
+    data_down = downsample_raster(st.session_state["raster_data"], downsample_factor)
+
+    st.write("Select start and goal points by clicking on the map below.")
+
+    # --- Use streamlit-plotly-events for click support ---
+    from streamlit_plotly_events import plotly_events
+
+    fig = plot_map_with_path(
+        data_down,
+        path=st.session_state["dijkstra_path"],
+        start=st.session_state["start_point"],
+        goal=st.session_state["goal_point"]
+    )
+    selected_points = plotly_events(
+        fig,
+        click_event=True,
+        select_event=False,
+        hover_event=False,
+        override_height=600,
+        override_width=800,
+        key="dijkstra_map"
+    )
+
+    # Handle point selection
+    if selected_points:
+        point = selected_points[0]
+        y = int(round(point['y']))
+        x = int(round(point['x']))
+        if st.session_state["start_point"] is None:
+            st.session_state["start_point"] = (y, x)
+            st.info(f"Start point selected at (row={y}, col={x}). Now select goal point.")
+        elif st.session_state["goal_point"] is None:
+            st.session_state["goal_point"] = (y, x)
+            st.info(f"Goal point selected at (row={y}, col={x}). Click 'Run Dijkstra' to find path.")
+        else:
+            st.warning("Both points selected. Click 'Reset Points' to choose new points.")
+
+    if st.button("Run Dijkstra"):
+        if st.session_state["start_point"] is None or st.session_state["goal_point"] is None:
+            st.error("Please select both start and goal points before running Dijkstra.")
+        else:
+            cost_matrix = create_cost_matrix(data_down)
+            path = run_dijkstra(cost_matrix, st.session_state["start_point"], st.session_state["goal_point"])
+            st.session_state["dijkstra_path"] = path
+            if path:
+                st.success(f"Shortest path found with length {len(path)}.")
+            else:
+                st.error("No path found.")
+
+elif page == "AI Environmental Assistant":
+    st.title("AI Environmental assistant")
+
+    # New: Document upload
+    document_text = ""
+    with st.expander("Optional: Upload a document to include in the prompt"):
+        uploaded_file = st.file_uploader("Choose a text file", type=["txt"])
+        if uploaded_file is not None:
+            document_text = uploaded_file.read().decode("utf-8")
+            st.text_area("Document content", value=document_text, height=150, disabled=True)
+
+    if "messages" not in st.session_state:
+        st.session_state.messages = [
+            {"role": "system", "content": SYSTEM_PROMPT}
+        ]
+    if "analysis_done" not in st.session_state:
+        st.session_state.analysis_done = False
+
+    chat_history = st.container()
+
+    with st.form("chat_form", clear_on_submit=True):
+        user_input = st.text_area("Your message:", key="user_input", height=80)
+        submitted = st.form_submit_button("Send")
+
+    if submitted and user_input.strip():
+        # Add document as a message if present
+        if document_text:
+            st.session_state.messages.append({
+                "role": "user document",
+                "content": f"Document provided by user:\n{document_text}"
+            })
+        st.session_state.messages.append({"role": "user", "content": user_input.strip()})
+        st.session_state.messages.append({"role": "database", "content": DATABASE})
+
+        # Print out the prompt sent to the model for development
+        with st.expander("Prompt sent to model"):
+            for msg in st.session_state.messages:
+                st.write(f"**{msg['role']}**: {msg['content']}")
+
+        with st.spinner("Assistant is typing..."):
+            assistant_reply = call_llm(st.session_state.messages)
+        st.session_state.messages.append({"role": "assistant", "content": assistant_reply})
+        st.session_state.analysis_done = True
+
+    with chat_history:
         for msg in st.session_state.messages:
-            st.write(f"**{msg['role']}**: {msg['content']}")
-
-    with st.spinner("Assistant is typing..."):
-        assistant_reply = call_llm(st.session_state.messages)
-    st.session_state.messages.append({"role": "assistant", "content": assistant_reply})
-    st.session_state.analysis_done = True
-
-with chat_history:
-    for msg in st.session_state.messages:
-        if msg["role"] == "system":
-            continue
-        if msg["role"] == "user":
-            st.markdown(f"**You:** {msg['content']}")
-        elif msg["role"] == "assistant":
-            st.markdown(f"**Assistant:** {msg['content']}")
+            if msg["role"] == "system":
+                continue
+            if msg["role"] == "user":
+                st.markdown(f"**You:** {msg['content']}")
+            elif msg["role"] == "assistant":
+                st.markdown(f"**Assistant:** {msg['content']}")
