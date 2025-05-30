@@ -1,0 +1,149 @@
+{
+  "Oakridge": {
+    "layer1": 7,
+    "layer2": 3,
+    "layer3": 9,
+    "layer4": 2,
+    "neighbours": ["Maplewood", "Pinehill", "Willowbrook"]
+  },
+  "Maplewood": {
+    "layer1": 5,
+    "layer2": 8,
+    "layer3": 2,
+    "layer4": 6,
+    "neighbours": ["Oakridge", "Brookfield", "Cedarvale"]
+  },
+  "Pinehill": {
+    "layer1": 4,
+    "layer2": 6,
+    "layer3": 7,
+    "layer4": 1,
+    "neighbours": ["Oakridge", "Willowbrook", "Riverside"]
+  },
+  "Willowbrook": {
+    "layer1": 9,
+    "layer2": 2,
+    "layer3": 5,
+    "layer4": 8,
+    "neighbours": ["Pinehill", "Oakridge", "Brookfield"]
+  },
+  "Brookfield": {
+    "layer1": 3,
+    "layer2": 7,
+    "layer3": 4,
+    "layer4": 5,
+    "neighbours": ["Willowbrook", "Maplewood", "Cedarvale"]
+  },
+  "Cedarvale": {
+    "layer1": 8,
+    "layer2": 1,
+    "layer3": 6,
+    "layer4": 7,
+    "neighbours": ["Maplewood", "Brookfield", "Riverside"]
+  },
+  "Riverside": {
+    "layer1": 2,
+    "layer2": 9,
+    "layer3": 3,
+    "layer4": 4,
+    "neighbours": ["Cedarvale", "Pinehill", "Hillcrest"]
+  },
+  "Hillcrest": {
+    "layer1": 6,
+    "layer2": 5,
+    "layer3": 8,
+    "layer4": 3,
+    "neighbours": ["Riverside", "Sunnyvale", "Lakeside"]
+  },
+  "Sunnyvale": {
+    "layer1": 1,
+    "layer2": 4,
+    "layer3": 10,
+    "layer4": 9,
+    "neighbours": ["Hillcrest", "Lakeside", "Elmstead"]
+  },
+  "Lakeside": {
+    "layer1": 10,
+    "layer2": 2,
+    "layer3": 1,
+    "layer4": 6,
+    "neighbours": ["Sunnyvale", "Hillcrest", "Elmstead"]
+  },
+  "Elmstead": {
+    "layer1": 7,
+    "layer2": 8,
+    "layer3": 2,
+    "layer4": 5,
+    "neighbours": ["Lakeside", "Sunnyvale", "Birchgrove"]
+  },
+  "Birchgrove": {
+    "layer1": 5,
+    "layer2": 3,
+    "layer3": 9,
+    "layer4": 7,
+    "neighbours": ["Elmstead", "Hazelton", "Ashfield"]
+  },
+  "Hazelton": {
+    "layer1": 3,
+    "layer2": 6,
+    "layer3": 8,
+    "layer4": 2,
+    "neighbours": ["Birchgrove", "Ashfield", "Meadowview"]
+  },
+  "Ashfield": {
+    "layer1": 8,
+    "layer2": 7,
+    "layer3": 4,
+    "layer4": 1,
+    "neighbours": ["Hazelton", "Birchgrove", "Meadowview"]
+  },
+  "Meadowview": {
+    "layer1": 2,
+    "layer2": 10,
+    "layer3": 5,
+    "layer4": 3,
+    "neighbours": ["Ashfield", "Hazelton", "Foxglove"]
+  },
+  "Foxglove": {
+    "layer1": 9,
+    "layer2": 1,
+    "layer3": 6,
+    "layer4": 8,
+    "neighbours": ["Meadowview", "Rosewood", "Poplar"]
+  },
+  "Rosewood": {
+    "layer1": 4,
+    "layer2": 5,
+    "layer3": 7,
+    "layer4": 2,
+    "neighbours": ["Foxglove", "Poplar", "Sycamore"]
+  },
+  "Poplar": {
+    "layer1": 6,
+    "layer2": 9,
+    "layer3": 3,
+    "layer4": 10,
+    "neighbours": ["Rosewood", "Foxglove", "Sycamore"]
+  },
+  "Sycamore": {
+    "layer1": 1,
+    "layer2": 8,
+    "layer3": 2,
+    "layer4": 4,
+    "neighbours": ["Poplar", "Rosewood", "Fernwood"]
+  },
+  "Fernwood": {
+    "layer1": 7,
+    "layer2": 4,
+    "layer3": 10,
+    "layer4": 5,
+    "neighbours": ["Sycamore", "Poplar", "Hawthorn"]
+  },
+  "Hawthorn": {
+    "layer1": 10,
+    "layer2": 3,
+    "layer3": 1,
+    "layer4": 9,
+    "neighbours": ["Fernwood", "Sycamore", "Oakridge"]
+  }
+}
