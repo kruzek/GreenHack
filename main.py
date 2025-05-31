@@ -16,6 +16,7 @@ If the proposed route  can be shortened (achieved goal with crossing less areas 
 Thus, you provide a detailed analysis of the environmental impact of the power line on each area, proposing alternative
 routes while telling how these alternatives will affect the environment. If you were able to shorten the path,
 in the next section, you can provide a suggested shortened path with the same goal achieved, but with less environmental impact.
+The output you provide is well structured, with clear sections for analysis and suggestions, using caps or bold for headings.
 Then, continue the conversation based on your analysis.
 """
 
