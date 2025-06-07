@@ -1,10 +1,9 @@
 import streamlit as st
-import openai
+from google import genai
+from google.genai import types
 
+GEMINI_API_KEY = "AIzaSyDV8b5PSmOy1zp2cieG7_NLD-M788T7euU"
 
-API_URL = "https://api.featherless.ai/v1"
-API_KEY = "rc_9ec513e6f29404913286239a973df723dcac4328faf23964a3d28e6369dfa995"
-MODEL = "meta-llama/Meta-Llama-3-70B-Instruct"
 SYSTEM_PROMPT = """
 You are environmental specialist to advise during power transmission lines building. 
 You will be provided with a database in form of geojson file including names of areas (villages), list of
@@ -23,22 +22,29 @@ Then, continue the conversation based on your analysis.
 with open("D:/Desktop/VSE/GreenHack/jihocesky.txt", "r", encoding="utf-8") as f:
     DATABASE = f.read()
 
-client = openai.OpenAI(
-    base_url=API_URL,
-    api_key=API_KEY,
-)
+client = genai.Client(api_key=GEMINI_API_KEY)
 
 def call_llm(messages):
-    response = client.chat.completions.create(
-        model=MODEL,
-        messages=messages,
+    # Build prompt from messages (skip system)
+    prompt = ""
+    for msg in messages:
+        if msg["role"] == "system":
+            continue
+        prompt += f"{msg['role'].capitalize()}: {msg['content']}\n"
+    response = client.models.generate_content(
+        model="gemini-2.0-flash-001",
+        contents=prompt,
+        config=types.GenerateContentConfig(
+            system_instruction=SYSTEM_PROMPT,
+            max_output_tokens=2048,
+            temperature=0.3,
+        ),
     )
-    return response.model_dump()['choices'][0]['message']['content']
+    return response.text
 
 st.set_page_config(page_title="AI Environmental assistant", layout="centered")
 st.title("AI Environmental assistant")
 
-# New: Document upload
 document_text = ""
 with st.expander("Optional: Upload a document to include in the prompt"):
     uploaded_file = st.file_uploader("Choose a text file", type=["txt"])
@@ -60,7 +66,6 @@ with st.form("chat_form", clear_on_submit=True):
     submitted = st.form_submit_button("Send")
 
 if submitted and user_input.strip():
-    # Add document as a message if present
     if document_text:
         st.session_state.messages.append({
             "role": "user document",
@@ -69,7 +74,6 @@ if submitted and user_input.strip():
     st.session_state.messages.append({"role": "user", "content": user_input.strip()})
     st.session_state.messages.append({"role": "database", "content": DATABASE})
 
-    # Print out the prompt sent to the model for development
     with st.expander("Prompt sent to model"):
         for msg in st.session_state.messages:
             st.write(f"**{msg['role']}**: {msg['content']}")
